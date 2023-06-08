@@ -12,11 +12,9 @@ bot.init()
 
 bot.api.setMyCommands([
     { command: "start", description: "Mulai bot ini" },
-    { command: "connect", description: "setup account" },
-    { command: "forward", description: "setup auto forward" },
-    { command: "getuser", description: "Get User ID" },
-    { command: "getgroup", description: "Get Group ID" },
-    { command: "getchanel", description: "Get Channel ID" },
+    { command: "init", description: "setup spreadsheet" },
+    { command: "getrow", description: "Get Row limit 10" },
+    { command: "getcolumn", description: "Get Column" },
 ]);
 
 async function setGoogleSpreadsheet(idSpreadsheet: string) {

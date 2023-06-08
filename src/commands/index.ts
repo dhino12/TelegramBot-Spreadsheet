@@ -7,7 +7,8 @@ import callback_query from "./handler/callback_query";
 import msg from "./handler/msg";
 import init from "./handler/init";
 import getColumn from "./handler/getColumn";
-import getRows from "./handler/getRows";
+import {getRows} from "./handler/getRows";
+import { getCellData } from "../data/auth";
 
 const composer = new Composer();
 
@@ -17,8 +18,9 @@ composer.command("init", init);
 composer.command("getcolumn", getColumn);
 composer.command("getrow", getRows);
 // composer.hears(/mycode\d+/, signInUser)
-composer.hears(/^worker=.*/, async (ctx) => {
+composer.hears(/^cell=.*/, async (ctx) => {
     // await deleteForward(ctx, undefined)
+    await getCellData()
 });
 
 composer.on("msg", msg);

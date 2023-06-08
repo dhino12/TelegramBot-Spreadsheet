@@ -8,6 +8,7 @@ const init = async (ctx: Context) => {
         const idSpreadsheetArray = ctx.match.toString().split("/")
         idSpreadsheet = idSpreadsheetArray.slice(5, 6)[0]
     }
+
     const resultInit = await auth(idSpreadsheet)
     
     if (resultInit) {
