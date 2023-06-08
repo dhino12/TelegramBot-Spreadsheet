@@ -1,3 +1,4 @@
+import loopAsAlphabet from "../utils/utils";
 import { getGoogleSpreadsheet, setGoogleSpreadsheet } from "../core/bot"
 import { GoogleSpreadsheet, GoogleSpreadsheetRow } from "google-spreadsheet";
 
@@ -11,6 +12,8 @@ const auth = async (idSpreadsheet: string) => {
 }
 
 const getRowsData = async ({rowIndex = 1, sheetName = "Sheet1", limit = 10}): Promise<GoogleSpreadsheetRow[]|undefined> => {
+    console.log(sheetName);
+    
     try {
         const doc = await getGoogleSpreadsheet()
         const sheet = doc.sheetsByTitle[sheetName];
@@ -44,14 +47,13 @@ const getColumnsData = async () => {
     
     return rows
 }
-
-const getCellData = async () => {
+ 
+const getCellData = async (rangeA1: string, sheetName: string) => {
     const doc = await getGoogleSpreadsheet()
-    const sheet = doc.sheetsByIndex[0]
-    await sheet.loadCells('A2:C14');
-    const cell = await sheet.getCellByA1("A2:A5")
-    console.log(cell.value);
+    const sheet = doc.sheetsByTitle[sheetName]
+    await sheet.loadCells(rangeA1);
     
+    return sheet
 }
 
 export { auth, getRowsData, getColumnsData, getCellData }

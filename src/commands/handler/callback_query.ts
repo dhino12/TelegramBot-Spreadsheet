@@ -26,14 +26,21 @@ const callback_query = async (ctx: Context): Promise<void> => {
             updatedKeyboard.text("❌ Close", "removeKeyboard").row()
             const results = await getAllRows(
                 parseInt(ctx.callbackQuery.data.split(" ")[1]),
-                ctx.callbackQuery.data.split(" ")[2]
-            )
-            
-            if (results?.length == undefined)  return
+                ctx.callbackQuery.data.split(" ").filter((sheet, i) => i >= 2).join(" ")
+            )   
+            if (results?.length == 0) {
+                console.log('masuk');
+                
+                ctx.reply("Ooops 😮 Terjadi masalah !...\nPastikan kamu sudah /init <docsURL> dan pastikan juga namaSheet sesuai dengan spreadsheet kamu")
+                return
+            }
             ctx.reply(`<pre>${table(results, {
                 border: getBorderCharacters("ramac")
             })}</pre>`, {parse_mode: "HTML", reply_markup: updatedKeyboard})
             break;
+        case 'showMultipleLines':
+            await ctx.reply("Masukan cell spreadsheet kamu dengan Format \ncell=<cell-kamu>;sheet=<sheetName>\n\n=====\nContoh:\ncell=A1:C5;sheet=Sheet1")
+            break
         case 'removeKeyboard':
             
         default:

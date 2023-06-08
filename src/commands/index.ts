@@ -9,6 +9,7 @@ import init from "./handler/init";
 import getColumn from "./handler/getColumn";
 import {getRows} from "./handler/getRows";
 import { getCellData } from "../data/auth";
+import cellHandler from "./handler/cellHandler";
 
 const composer = new Composer();
 
@@ -18,10 +19,7 @@ composer.command("init", init);
 composer.command("getcolumn", getColumn);
 composer.command("getrow", getRows);
 // composer.hears(/mycode\d+/, signInUser)
-composer.hears(/^cell=.*/, async (ctx) => {
-    // await deleteForward(ctx, undefined)
-    await getCellData()
-});
+composer.hears(/^cell=.*/, cellHandler);
 
 composer.on("msg", msg);
 composer.on("callback_query:data", callback_query);
